@@ -1,35 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instagram Feed</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instagram Feed (Bootstrap 5)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/9548b6f7e1.js" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-    .list-view .col-12 {
-      display: flex;
-      justify-content: center;
-    }
-    .list-view .card {
-      width: 45%;
-      margin-bottom: 1.5rem;
-    }
-    @media (max-width: 768px) {
-      .list-view .card {
-        width: 90%;
-      }
-    }
-    .card-img-top {
-      border-bottom: 1px solid #ddd;
-    }
-  </style>
 </head>
 <body class="bg-white">
+
   <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand fw-bold" href="#">
         <i class="fa-brands fa-instagram"></i> Instagram
       </a>
       <div class="d-flex ms-auto align-items-center">
@@ -37,196 +20,520 @@
           Create a new repository
         </button>
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="height:38px;">
+          <button
+            class="btn btn-secondary dropdown-toggle d-flex align-items-center"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="height:38px;"
+          >
             <i class="fa-solid fa-gear text-white"></i>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end bg-white text-black" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item text-black" href="#">Profile</a></li>
-            <li><a class="dropdown-item text-black" href="#">Accessibility</a></li>
-            <li><a class="dropdown-item text-black" href="#">Privacy and Data</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-black" href="#">Log Out</a></li>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Accessibility</a></li>
+            <li><a class="dropdown-item" href="#">Privacy and Data</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Log Out</a></li>
           </ul>
         </div>
       </div>
     </div>
   </nav>
-   <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
+
+  <div
+    class="modal fade"
+    id="newPostModal"
+    tabindex="-1"
+    aria-labelledby="newPostModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="newPostModalLabel">Create a new post</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="mb-3">
               <label for="postCaption" class="form-label">Caption:</label>
-              <textarea class="form-control" id="postCaption" rows="3" placeholder="Add the caption of your post here"></textarea>
+              <textarea
+                class="form-control"
+                id="postCaption"
+                rows="3"
+                placeholder="Add the caption of your post here"
+              ></textarea>
             </div>
             <div class="d-flex gap-2">
-              <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-camera"></i></button>
-              <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-location-dot"></i></button>
+              <button type="button" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-camera"></i>
+              </button>
+              <button type="button" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-location-dot"></i>
+              </button>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
           <button type="button" class="btn btn-success">Publish</button>
         </div>
       </div>
     </div>
   </div>
-   <div class="container text-center mt-4">
-    <button id="gridViewBtn" class="btn btn-outline-primary me-2">
-      <i class="fa-solid fa-table-cells"></i>
-    </button>
-    <button id="listViewBtn" class="btn btn-outline-secondary">
-      <i class="fa-solid fa-square"></i>
-    </button>
+
+  <div class="container text-center mt-4">
+    <ul
+      class="nav nav-pills justify-content-center"
+      id="viewTabs"
+      role="tablist"
+    >
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          id="grid-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#gridView"
+          type="button"
+          role="tab"
+          aria-controls="gridView"
+          aria-selected="true"
+        >
+          <i class="fa-solid fa-table-cells"></i>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          id="list-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#listView"
+          type="button"
+          role="tab"
+          aria-controls="listView"
+          aria-selected="false"
+        >
+          <i class="fa-solid fa-square"></i>
+        </button>
+      </li>
+    </ul>
   </div>
-   <div class="container mt-4">
-    <div class="row g-3" id="postsContainer">
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">My crazy dog spark</h6>
-            <span class="text-muted">08/26</span>
-          </div>
-          <img src="https://picsum.photos/id/237/400/300" class="card-img-top" alt="Post 1">
-          <div class="card-body">
-            <p class="mb-1"><strong>204 Likes</strong></p>
-            <p class="mb-0">My crazy dog spark.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">NY.</h6>
-            <span class="text-muted">04/09</span>
-          </div>
-          <img src="https://picsum.photos/id/238/400/300" class="card-img-top" alt="Post 2">
-          <div class="card-body">
-            <p class="mb-1"><strong>150 Likes</strong></p>
-            <p class="mb-0">NY.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">Spring.</h6>
-            <span class="text-muted">06/10</span>
-          </div>
-          <img src="https://picsum.photos/id/239/400/300" class="card-img-top" alt="Post 3">
-          <div class="card-body">
-            <p class="mb-1"><strong>98 Likes</strong></p>
-            <p class="mb-0">Spring.</p>
+
+  <div class="tab-content mt-4 container">
+
+    <div
+      class="tab-pane fade show active"
+      id="gridView"
+      role="tabpanel"
+      aria-labelledby="grid-tab"
+      tabindex="0"
+    >
+      <div class="row g-4">
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>My crazy dog spark</span>
+              <span class="text-muted">08/26</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/237/600/400"
+              class="card-img-top"
+              alt="My crazy dog spark"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">204 Likes</p>
+              <p class="mb-0">My crazy dog spark.</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">Loneliness.</h6>
-            <span class="text-muted">10/10</span>
-          </div>
-          <img src="https://picsum.photos/id/240/400/300" class="card-img-top" alt="Post 4">
-          <div class="card-body">
-            <p class="mb-1"><strong>320 Likes</strong></p>
-            <p class="mb-0">Loneliness.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">Field.</h6>
-            <span class="text-muted">09/11</span>
-          </div>
-          <img src="https://picsum.photos/id/241/400/300" class="card-img-top" alt="Post 5">
-          <div class="card-body">
-            <p class="mb-1"><strong>500 Likes</strong></p>
-            <p class="mb-0">Field.</p>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>NY.</span>
+              <span class="text-muted">04/09</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/238/600/400"
+              class="card-img-top"
+              alt="NY"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">150 Likes</p>
+              <p class="mb-0">NY.</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">Barcelona.</h6>
-            <span class="text-muted">10/10</span>
-          </div>
-          <img src="https://picsum.photos/id/242/400/300" class="card-img-top" alt="Post 6">
-          <div class="card-body">
-            <p class="mb-1"><strong>290 Likes</strong></p>
-            <p class="mb-0">Barcelona.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">Mountain.</h6>
-            <span class="text-muted">08/12</span>
-          </div>
-          <img src="https://picsum.photos/id/243/400/300" class="card-img-top" alt="Post 7">
-          <div class="card-body">
-            <p class="mb-1"><strong>120 Likes</strong></p>
-            <p class="mb-0">Mountain.</p>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Spring.</span>
+              <span class="text-muted">06/10</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/239/600/400"
+              class="card-img-top"
+              alt="Spring"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">98 Likes</p>
+              <p class="mb-0">Spring.</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">Port.</h6>
-            <span class="text-muted">04/24</span>
-          </div>
-          <img src="https://picsum.photos/id/244/400/300" class="card-img-top" alt="Post 8">
-          <div class="card-body">
-            <p class="mb-1"><strong>333 Likes</strong></p>
-            <p class="mb-0">Port.</p>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Loneliness.</span>
+              <span class="text-muted">10/10</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/240/600/400"
+              class="card-img-top"
+              alt="Loneliness"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">320 Likes</p>
+              <p class="mb-0">Loneliness.</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-header bg-white d-flex justify-content-between">
-            <h6 class="m-0 fw-bold">My beautiful street.</h6>
-            <span class="text-muted">05/10</span>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Field.</span>
+              <span class="text-muted">09/11</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/241/600/400"
+              class="card-img-top"
+              alt="Field"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">500 Likes</p>
+              <p class="mb-0">Field.</p>
+            </div>
           </div>
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT56DOrRjss4v9hXiZX6WsjaeYMkFtfjSQT3Q&s" class="card-img-top" alt="Post 9">
-          <div class="card-body">
-            <p class="mb-1"><strong>180 Likes</strong></p>
-            <p class="mb-0">My beautiful street.</p>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Barcelona.</span>
+              <span class="text-muted">10/10</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/242/600/400"
+              class="card-img-top"
+              alt="Barcelona"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">290 Likes</p>
+              <p class="mb-0">Barcelona.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Mountain.</span>
+              <span class="text-muted">08/12</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/243/600/400"
+              class="card-img-top"
+              alt="Mountain"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">120 Likes</p>
+              <p class="mb-0">Mountain.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Port.</span>
+              <span class="text-muted">04/24</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/244/600/400"
+              class="card-img-top"
+              alt="Port"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">333 Likes</p>
+              <p class="mb-0">Port.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card shadow-sm h-100">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>My beautiful street.</span>
+              <span class="text-muted">05/10</span>
+            </div>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT56DOrRjss4v9hXiZX6WsjaeYMkFtfjSQT3Q&s"
+              class="card-img-top"
+              alt="My beautiful street"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">180 Likes</p>
+              <p class="mb-0">My beautiful street.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div
+      class="tab-pane fade"
+      id="listView"
+      role="tabpanel"
+      aria-labelledby="list-tab"
+      tabindex="0"
+    >
+      <div class="d-flex flex-column align-items-center gap-4">
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>My crazy dog spark</span>
+              <span class="text-muted">08/26</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/237/600/400"
+              class="card-img-top"
+              alt="My crazy dog spark"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">204 Likes</p>
+              <p class="mb-0">My crazy dog spark.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>NY.</span>
+              <span class="text-muted">04/09</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/238/600/400"
+              class="card-img-top"
+              alt="NY"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">150 Likes</p>
+              <p class="mb-0">NY.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Spring.</span>
+              <span class="text-muted">06/10</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/239/600/400"
+              class="card-img-top"
+              alt="Spring"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">98 Likes</p>
+              <p class="mb-0">Spring.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Loneliness.</span>
+              <span class="text-muted">10/10</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/240/600/400"
+              class="card-img-top"
+              alt="Loneliness"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">320 Likes</p>
+              <p class="mb-0">Loneliness.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Field.</span>
+              <span class="text-muted">09/11</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/241/600/400"
+              class="card-img-top"
+              alt="Field"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">500 Likes</p>
+              <p class="mb-0">Field.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Barcelona.</span>
+              <span class="text-muted">10/10</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/242/600/400"
+              class="card-img-top"
+              alt="Barcelona"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">290 Likes</p>
+              <p class="mb-0">Barcelona.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Mountain.</span>
+              <span class="text-muted">08/12</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/243/600/400"
+              class="card-img-top"
+              alt="Mountain"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">120 Likes</p>
+              <p class="mb-0">Mountain.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>Port.</span>
+              <span class="text-muted">04/24</span>
+            </div>
+            <img
+              src="https://picsum.photos/id/244/600/400"
+              class="card-img-top"
+              alt="Port"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">333 Likes</p>
+              <p class="mb-0">Port.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-12">
+          <div class="card shadow-sm">
+            <div
+              class="card-header bg-white d-flex justify-content-between"
+              style="font-weight: 600;"
+            >
+              <span>My beautiful street.</span>
+              <span class="text-muted">05/10</span>
+            </div>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT56DOrRjss4v9hXiZX6WsjaeYMkFtfjSQT3Q&s"
+              class="card-img-top"
+              alt="My beautiful street"
+            />
+            <div class="card-body text-start">
+              <p class="fw-semibold mb-1">180 Likes</p>
+              <p class="mb-0">My beautiful street.</p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
   </div>
-  <script>
-    const gridViewBtn = document.getElementById("gridViewBtn");
-    const listViewBtn = document.getElementById("listViewBtn");
-    const postsContainer = document.getElementById("postsContainer");
-    const posts = document.querySelectorAll("#postsContainer > div");
 
-    gridViewBtn.addEventListener("click", () => {
-      postsContainer.classList.remove("list-view");
-      posts.forEach(post => {
-        post.classList.remove("col-12");
-        post.classList.add("col-md-4");
-      });
-    });
-
-    listViewBtn.addEventListener("click", () => {
-      postsContainer.classList.add("list-view");
-      posts.forEach(post => {
-        post.classList.remove("col-md-4");
-        post.classList.add("col-12");
-      });
-    });
-  </script>
 </body>
 </html>
